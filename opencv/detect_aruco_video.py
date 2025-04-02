@@ -57,7 +57,8 @@ arucoDetector = cv2.aruco.ArucoDetector(arucoDict, arucoParams)
 
 # initialize the video stream and allow the camera sensor to warm up
 print("[INFO] starting video stream...")
-vs = VideoStream(src=cv2.CAP_DSHOW).start()
+#vs = VideoStream(src=cv2.CAP_DSHOW).start()
+vs = VideoStream("http://192.168.4.1:81/stream").start()
 time.sleep(2.0)
 
 # loop over the frames from the video stream
