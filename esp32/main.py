@@ -26,13 +26,13 @@ _UART_SERVICE = (
 _ADV_APPEARANCE_GENERIC_COMPUTER = const(128)
 
 debug=0
-motor_right = MX1508(25, 26) 
-motor_left = MX1508(22, 23)
+motor_right = MX1508(12, 13) 
+motor_left = MX1508(14, 27)
 sp=1023
 an=0
 on=0
 col_id=0
-comand=''
+comand='20:'
 pwm = PWM(Pin(33,Pin.OUT))
 pwm.freq(50)
 pwm.duty(0)
@@ -135,27 +135,27 @@ async def do_it(int_ms):
                 print("стоп")
         if comand=='804':
             #Вправо
-            motor_right.reverse(sp)
-            motor_left.forward(sp)
+            motor_left.reverse(sp)
+            motor_right.forward(sp)
             if debug == 1:
                 print("вправо")
         if comand=='705':
             #Влево
-            motor_right.forward(sp)
-            motor_left.reverse(sp)
+            motor_left.forward(sp)
+            motor_right.reverse(sp)
             if debug == 1:
                 print("влево")
         if comand=='10;' and on:
             if debug == 1:
                 print("камера вверх")
-            an+=30
+            an+=5
             on=0
             if an>180:
                 an=180
         if comand=='309' and on:
             if debug == 1:
                 print("камера вниз")
-            an-=30
+            an-=5
             on=0
             if an<0:
                 an=0
@@ -165,7 +165,7 @@ async def do_it(int_ms):
 loop = asio.get_event_loop()
 
 #create looped tasks
-loop.create_task(do_it(10))
+loop.create_task(do_it(5))
 # loop run forever
 loop.run_forever()
 
